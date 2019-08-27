@@ -8,7 +8,7 @@ def words(s):
     for element in s:
         if len(element) % 2 == 0:
             print(element)
-s = "I am crazy as fcuk and I am joking"
+s = "I am number one and I am not joking"
 words(s)
 
 
@@ -17,7 +17,7 @@ def print_odd_words(t):
     for odd in t:
         if len(odd) % 2 != 0:
             print(odd)
-t = "I am crazy as fcuk and I am joking"
+t = "I am number one and I am not joking"
 print_odd_words(t)
 
 

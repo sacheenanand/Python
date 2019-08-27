@@ -7,7 +7,7 @@ def fib(n):
     else:
         return fib(n-1) + fib(n - 2)
 print(fib(10))
-
+'''
 def reverse(str):
     if len(str) == 0:
         return str
@@ -15,6 +15,17 @@ def reverse(str):
         return reverse(str[1:]) + str[0]
 str = "Sacheen Anand"
 print(reverse(str))
+'''''
+
+def rev(string):
+    if len(string)==0:
+        return string
+    else:
+        return rev(string[1:]) + string[0]
+
+string = "hello"
+print(rev(string))
+
 
 def fiba(n):
     a, b = 0, 1

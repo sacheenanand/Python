@@ -8,3 +8,14 @@ if not sacheen == arin:
 else:
     print("false")
 
+
+
+def greater(n):
+    return n > 1
+
+print(greater(1))
+print(greater(2))
+
+
+
+

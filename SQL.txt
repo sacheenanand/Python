@@ -1,0 +1,956 @@
+#
+1.
+1.
+#The SELECT DISTINCT statement is used to return only distinct (different) values.
+#means it removes the duplicates from the list.
+select distinct country from customers;
+
+#2
+ The SQL WHERE Clause
+ The WHERE clause is used to filter records.
+  The WHERE clause is used to extract only those records that fulfill a specified condition.
+SELECT * FROM Customers
+WHERE Country='Mexico';
+
+-----------------------------------------
+#3
+The SQL AND, OR and NOT Operators
+The WHERE clause can be combined with AND, OR, and NOT operators.
+
+The AND and OR operators are used to filter records based on more than one condition:
+
+The AND operator displays a record if all the conditions separated by AND are TRUE.
+The OR operator displays a record if any of the conditions separated by OR is TRUE.
+The NOT operator displays a record if the condition(s) is NOT TRUE.
+----------------------------------------
+select *from customers where Country = "Germany" and city = "Berlin"
+
+
+AND Example
+The following SQL statement selects all fields from "Customers" where country is "Germany" AND city is "Berlin":
+
+---------------------------------------------
+Combining AND, OR and NOT
+You can also combine the AND, OR and NOT operators.
+
+The following SQL statement selects all fields from "Customers" where country is "Germany" AND city must be "Berlin" OR "München" (use parenthesis to form complex expressions):
+
+You can also combine the AND, OR and NOT operators.
+
+The following SQL statement selects all fields from "Customers" where
+country is "Germany" AND city must be "Berlin" OR "München" (use parenthesis to form complex expressions):
+SELECT * FROM Customers where country = "Germany" AND (city = "Brandenburg" OR city = "Berlin")
+
+-----------------------------------------------
+The SQL ORDER BY Keyword
+The ORDER BY keyword is used to sort the result-set in ascending or descending order.
+
+The ORDER BY keyword sorts the records in ascending order by default. To sort the records in descending order, use the DESC keyword.
+
+SELECT * FROM Customers
+ORDER BY Country;
+-------------------------------------------
+
+The SQL INSERT INTO Statement
+The INSERT INTO statement is used to insert new records in a table.
+
+INSERT INTO Syntax
+It is possible to write the INSERT INTO statement in two ways.
+
+The first way specifies both the column names and the values to be inserted:
+
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+INSERT INTO Customers(CustomerName, City, Country) Values ("Sacheen" , "Walnut Creek", "USA");
+
+-----------------------------------------------
+The IS NULL operator is used to test for empty values (NULL values).
+
+The following SQL lists all customers with a NULL value in the "Address" field:
+
+
+------------------------------------
+Example
+Select customername, contactname, address from customers where address is Null;
+
+
+The IS NOT NULL Operator
+The IS NOT NULL operator is used to test for non-empty values (NOT NULL values).
+
+The following SQL lists all customers with a value in the "Address" field:
+
+Select customername, contactname, address from customers where address is not Null;
+
+---------------------------------------
+The SQL UPDATE Statement
+The UPDATE statement is used to modify the existing records in a table.
+
+Note: Be careful when updating records in a table! Notice the WHERE clause in the UPDATE statement.
+The WHERE clause specifies which record(s) that should be updated. If you omit the WHERE clause, all records in the table will be updated!
+
+
+
+
+Update customers
+set contactname = "Anand Arkula", city = "Union City"
+where customerid = 92
+---------------------------------------
+
+The SQL DELETE Statement
+The DELETE statement is used to delete existing records in a table.
+
+Note: Be careful when deleting records in a table! Notice the WHERE clause in the DELETE statement.
+The WHERE clause specifies which record(s) should be deleted. If you omit the WHERE clause, all records in the table will be deleted!
+
+-----------------------------------------
+The SQL SELECT TOP Clause
+The SELECT TOP clause is used to specify the number of records to return.
+
+The SELECT TOP clause is useful on large tables with thousands of records. Returning a large number of records can impact performance.
+
+Note: Not all database systems support the SELECT TOP clause. MySQL supports the LIMIT clause to select a limited number of records,
+while Oracle uses ROWNUM.
+
+SELECT * FROM Customers
+LIMIT 3;
+
+------------------------------------
+The SQL MIN() and MAX() Functions
+The MIN() function returns the smallest value of the selected column.
+
+The MAX() function returns the largest value of the selected column.
+
+SELECT MIN(Price) AS SmallestPrice
+FROM Products;
+
+SELECT MAX(Price) AS LargestPrice
+FROM Products;
+
+-----------------------------------------------------------------------------------------------
+The SQL LIKE Operator
+The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
+
+There are two wildcards often used in conjunction with the LIKE operator:
+
+% - The percent sign represents zero, one, or multiple characters
+_ - The underscore represents a single character
+The following SQL statement selects all customers with a CustomerName starting with "a":
+
+Example
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a%';
+
+The following SQL statement selects all customers with a CustomerName ending with "a":
+
+Example
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%a';
+
+
+The following SQL statement selects all customers with a CustomerName that have "or" in any position:
+
+Example
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%or%';
+
+The following SQL statement selects all customers with a CustomerName that have "r" in the second position:
+
+Example
+SELECT * FROM Customers
+WHERE CustomerName LIKE '_r%';
+
+
+The following SQL statement selects all customers with a CustomerName that starts with "a" and are at least 3 characters in length:
+
+Example
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a__%';
+
+
+The following SQL statement selects all customers with a ContactName that starts with "a" and ends with "o":
+
+Example
+SELECT * FROM Customers
+WHERE ContactName LIKE 'a%o';
+
+
+The following SQL statement selects all customers with a CustomerName that does NOT start with "a":
+
+Example
+SELECT * FROM Customers
+WHERE CustomerName NOT LIKE 'a%';
+
+------------------------------------------------------------------------------------------------------------------------------
+SQL Wildcard Characters
+A wildcard character is used to substitute one or more characters in a string.
+
+Wildcard characters are used with the SQL LIKE operator. The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
+
+Wildcard Characters in MS Access
+Symbol	Description	Example
+*	Represents zero or more characters	bl* finds bl, black, blue, and blob
+?	Represents a single character	h?t finds hot, hat, and hit
+[]	Represents any single character within the brackets	h[oa]t finds hot and hat, but not hit
+!	Represents any character not in the brackets	h[!oa]t finds hit, but not hot and hat
+-	Represents a range of characters	c[a-b]t finds cat and cbt
+#	Represents any single numeric character	2#5 finds 205, 215, 225, 235, 245, 255, 265, 275, 285, and 295
+Wildcard Characters in SQL Server
+Symbol	Description	Example
+%	Represents zero or more characters	bl% finds bl, black, blue, and blob
+_	Represents a single character	h_t finds hot, hat, and hit
+[]	Represents any single character within the brackets	h[oa]t finds hot and hat, but not hit
+^	Represents any character not in the brackets	h[^oa]t finds hit, but not hot and hat
+-	Represents a range of characters	c[a-b]t finds cat and cbt
+All the wildcards can also be used in combinations!
+
+Here are some examples showing different LIKE operators with '%' and '_' wildcards:
+
+LIKE Operator	Description
+WHERE CustomerName LIKE 'a%'	Finds any values that starts with "a"
+WHERE CustomerName LIKE '%a'	Finds any values that ends with "a"
+WHERE CustomerName LIKE '%or%'	Finds any values that have "or" in any position
+WHERE CustomerName LIKE '_r%'	Finds any values that have "r" in the second position
+WHERE CustomerName LIKE 'a_%_%'	Finds any values that starts with "a" and are at least 3 characters in length
+WHERE ContactName LIKE 'a%o'	Finds any values that starts with "a" and ends with "o"
+
+
+The following SQL statement selects all customers with a City containing the pattern "es":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '%es%';
+
+
+The following SQL statement selects all customers with a City starting with any character, followed by "ondon":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '_ondon';
+
+The following SQL statement selects all customers with a City starting with "L", followed by any character, followed by "n", followed by any character, followed by "on":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE 'L_n_on';
+
+The following SQL statement selects all customers with a City starting with "b", "s", or "p":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '[bsp]%';
+
+
+The following SQL statement selects all customers with a City starting with "a", "b", or "c":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '[a-c]%';
+
+
+The two following SQL statements select all customers with a City NOT starting with "b", "s", or "p":
+
+Example
+SELECT * FROM Customers
+WHERE City LIKE '[!bsp]%';
+
+Or:
+
+Example
+SELECT * FROM Customers
+WHERE City NOT LIKE '[bsp]%';
+
+--------------------------------------------------------------------------------------------------------
+
+The SQL IN Operator
+The IN operator allows you to specify multiple values in a WHERE clause.
+
+The IN operator is a shorthand for multiple OR conditions.
+
+Example
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (value1, value2, ...);
+
+
+SELECT * FROM Customers
+WHERE Country IN ('Germany', 'France', 'UK');
+
+SELECT * FROM Customers
+WHERE Country in ("Germany", "France")
+
+------------------------------------------------------------------------------------------------------------
+
+The SQL BETWEEN Operator
+The BETWEEN operator selects values within a given range. The values can be numbers, text, or dates.
+
+The BETWEEN operator is inclusive: begin and end values are included.
+
+BETWEEN Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+
+
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+
+select * from Products where Price between 19 and 20;
+
+--------------------------------------------------------------------------------------------------------------
+
+SQL Aliases
+SQL Aliases
+SQL aliases are used to give a table, or a column in a table, a temporary name.
+
+Aliases are often used to make column names more readable.
+
+An alias only exists for the duration of the query.
+
+Alias Column Syntax
+SELECT column_name AS alias_name
+FROM table_name;
+Alias Table Syntax
+SELECT column_name(s)
+FROM table_name AS alias_name;
+
+select CustomerID AS ID , CustomerName as con From Customers;
+
+----------------------------------------------------------------------------------------------------------------
+
+SQL JOIN
+A JOIN clause is used to combine rows from two or more tables, based on a related column between them.
+
+Let's look at a selection from the "Orders" table:
+
+OrderID	CustomerID	OrderDate
+10308	2	1996-09-18
+10309	37	1996-09-19
+10310	77	1996-09-20
+Then, look at a selection from the "Customers" table:
+
+CustomerID	CustomerName	ContactName	Country
+1	Alfreds Futterkiste	Maria Anders	Germany
+2	Ana Trujillo Emparedados y helados	Ana Trujillo	Mexico
+3	Antonio Moreno Taquería	Antonio Moreno	Mexico
+Notice that the "CustomerID" column in the "Orders" table refers to the "CustomerID" in the "Customers" table.
+The relationship between the two tables above is the "CustomerID" column.
+
+Then, we can create the following SQL statement (that contains an INNER JOIN), that selects
+records that have matching values in both tables:
+
+
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+
+------------------------------------------------------------------------------------------------------------
+SQL INNER JOIN Keyword
+The INNER JOIN keyword selects records that have matching values in both tables.
+
+INNER JOIN Syntax
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+SELECT * FROM ORDERS INNER JOIN CUSTOMERS ON ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID;
+
+-----------------------------------------------------------------------------------------------------------------
+
+SQL LEFT JOIN Keyword
+SQL LEFT JOIN Keyword
+The LEFT JOIN keyword returns all records from the left table (table1), and the matched records from the right table (table2). The result is NULL from the right side, if there is no match.
+
+LEFT JOIN Syntax
+
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name;
+
+SELECT customers.customername, orders.orderid FROM CUSTOMERS LEFT JOIN ORDERS ON CUSTOMERS.CUSTOMERID = ORDERS.CUSTOMERID
+ORDER BY Customers.CustomerName;
+-----------------------------------------------------------------------------------------------------------------
+
+SQL RIGHT JOIN Keyword
+The RIGHT JOIN keyword returns all records from the right table (table2), and the matched records from the left table (table1). The result is NULL from the left side, when there is no match.
+
+RIGHT JOIN Syntax
+
+SELECT column_name(s)
+FROM table1
+RIGHT JOIN table2
+ON table1.column_name = table2.column_name;
+
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+-----------------------------------------------------------------------------------------------------------------
+SQL FULL OUTER JOIN Keyword
+The FULL OUTER JOIN keyword return all records when there is a match in left (table1) or right (table2) table records.
+
+Note: FULL OUTER JOIN can potentially return very large result-sets!
+
+Tip: FULL OUTER JOIN and FULL JOIN are the same.
+
+FULL OUTER JOIN Syntax
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column_name = table2.column_name
+WHERE condition;
+-----------------------------------------------------------------------------------------------------------------
+
+The SQL UNION Operator
+The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+Each SELECT statement within UNION must have the same number of columns
+The columns must also have similar data types
+The columns in each SELECT statement must also be in the same order
+
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+
+
+SELECT City ,country FROM Customers
+where country = "Germany"
+UNION
+SELECT City, country FROM Suppliers
+where country = "Germnay"
+
+-----------------------------------------------------------------------------------------------------------------
+The SQL GROUP BY Statement
+The GROUP BY statement group rows that have the same values into summary rows, like "find the number of customers in each country".
+
+The GROUP BY statement is often used with aggregate functions (COUNT, MAX, MIN, SUM, AVG) to group the result-set by one or more columns.
+
+GROUP BY Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);
+
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+Demo Database
+Below is a selection from the "Orders" table in the Northwind sample database:
+
+OrderID	CustomerID	EmployeeID	OrderDate	ShipperID
+10248	90	5	1996-07-04	3
+10249	81	6	1996-07-05	1
+10250	34	4	1996-07-08	2
+And a selection from the "Shippers" table:
+
+ShipperID	ShipperName
+1	Speedy Express
+2	United Package
+3	Federal Shipping
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+The SQL HAVING Clause
+The HAVING clause was added to SQL because the WHERE keyword could not be used with aggregate functions.
+
+HAVING Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+HAVING condition
+ORDER BY column_name(s);
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5
+ORDER BY COUNT(CustomerID) DESC;
+
+---------------------------
+
+The SQL EXISTS Operator
+The EXISTS operator is used to test for the existence of any record in a subquery.
+
+The EXISTS operator returns true if the subquery returns one or more records.
+
+EXISTS Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS
+(SELECT column_name FROM table_name WHERE condition);
+
+Below is a selection from the "Products" table in the Northwind sample database:
+
+ProductID	ProductName	SupplierID	CategoryID	Unit	Price
+1	Chais	1	1	10 boxes x 20 bags	18
+2	Chang	1	1	24 - 12 oz bottles	19
+3	Aniseed Syrup	1	2	12 - 550 ml bottles	10
+4	Chef Anton's Cajun Seasoning	2	2	48 - 6 oz jars	22
+5	Chef Anton's Gumbo Mix	2	2	36 boxes	21.35
+And a selection from the "Suppliers" table:
+
+SupplierID	SupplierName	ContactName	Address	City	PostalCode	Country
+1	Exotic Liquid	Charlotte Cooper	49 Gilbert St.	London	EC1 4SD	UK
+2	New Orleans Cajun Delights	Shelley Burke	P.O. Box 78934	New Orleans	70117	USA
+3	Grandma Kelly's Homestead	Regina Murphy	707 Oxford Rd.	Ann Arbor	48104	USA
+4	Tokyo Traders	Yoshi Nagase	9-8 Sekimai Musashino-shi	Tokyo	100	Japan
+
+
+SQL EXISTS Examples
+The following SQL statement returns TRUE and lists the suppliers with a product price less than 20:
+
+Example
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+
+
+
+------------------------------------------
+
+The SQL ANY and ALL Operators
+The ANY and ALL operators are used with a WHERE or HAVING clause.
+
+The ANY operator returns true if any of the subquery values meet the condition.
+
+The ALL operator returns true if all of the subquery values meet the condition.
+
+ANY Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ANY
+(SELECT column_name FROM table_name WHERE condition);
+ALL Syntax
+SELECT column_name(s)
+FROM table_name
+WHERE column_name operator ALL
+(SELECT column_name FROM table_name WHERE condition);
+
+
+SELECT ProductName
+FROM Products
+WHERE ProductID = ANY (SELECT ProductID FROM OrderDetails WHERE Quantity = 10);
+
+
+Below is a selection from the "Products" table in the Northwind sample database:
+
+ProductID	ProductName	SupplierID	CategoryID	Unit	Price
+1	Chais	1	1	10 boxes x 20 bags	18
+2	Chang	1	1	24 - 12 oz bottles	19
+3	Aniseed Syrup	1	2	12 - 550 ml bottles	10
+4	Chef Anton's Cajun Seasoning	2	2	48 - 6 oz jars	22
+5	Chef Anton's Gumbo Mix	2	2	36 boxes	21.35
+And a selection from the "OrderDetails" table:
+
+OrderDetailID	OrderID	ProductID	Quantity
+1	10248	11	12
+2	10248	42	10
+3	10248	72	5
+4	10249	14	9
+5	10249	51	40
+--------------------------------------------------------------------------------------------
+
+The SQL SELECT INTO Statement
+The SELECT INTO statement copies data from one table into a new table.
+
+SELECT INTO Syntax
+Copy all columns into a new table:
+
+SELECT *
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+Copy only some columns into a new table:
+
+SELECT column1, column2, column3, ...
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+
+
+----------------
+
+
+The SQL SELECT INTO Statement
+The SELECT INTO statement copies data from one table into a new table.
+
+SELECT INTO Syntax
+Copy all columns into a new table:
+
+SELECT *
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+Copy only some columns into a new table:
+
+SELECT column1, column2, column3, ...
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
+The new table will be created with the column-names and types as defined in the old table. You can create new column names using the AS clause.
+
+SQL SELECT INTO Examples
+The following SQL statement creates a backup copy of Customers:
+
+SELECT * INTO CustomersBackup2017
+FROM Customers;
+The following SQL statement uses the IN clause to copy the table into a new table in another database:
+
+SELECT * INTO CustomersBackup2017 IN 'Backup.mdb'
+FROM Customers;
+The following SQL statement copies only a few columns into a new table:
+
+SELECT CustomerName, ContactName INTO CustomersBackup2017
+FROM Customers;
+The following SQL statement copies only the German customers into a new table:
+
+SELECT * INTO CustomersGermany
+FROM Customers
+WHERE Country = 'Germany';
+
+------------------------------------------------------------
+
+The SQL INSERT INTO SELECT Statement
+The INSERT INTO SELECT statement copies data from one table and inserts it into another table.
+
+INSERT INTO SELECT requires that data types in source and target tables match
+The existing records in the target table are unaffected
+INSERT INTO SELECT Syntax
+Copy all columns from one table to another table:
+
+INSERT INTO table2
+SELECT * FROM table1
+WHERE condition;
+Copy only some columns from one table into another table:
+
+INSERT INTO table2 (column1, column2, column3, ...)
+SELECT column1, column2, column3, ...
+FROM table1
+WHERE condition;
+Demo Database
+In this tutorial we will use the well-known Northwind sample database.
+
+Below is a selection from the "Customers" table:
+
+CustomerID	CustomerName	ContactName	Address	City	PostalCode	Country
+1        Alfreds Futterkiste	Maria Anders	Obere Str. 57	Berlin	12209	Germany
+2	Ana Trujillo Emparedados y helados	Ana Trujillo	Avda. de la Constitución 2222	México D.F.	05021	Mexico
+3	Antonio Moreno Taquería	Antonio Moreno	Mataderos 2312	México D.F.	05023	Mexico
+And a selection from the "Suppliers" table:
+
+SupplierID	SupplierName	ContactName	Address	City	Postal Code	Country
+1	Exotic Liquid	Charlotte Cooper	49 Gilbert St.	Londona	EC1 4SD	UK
+2	New Orleans Cajun Delights	Shelley Burke	P.O. Box 78934	New Orleans	70117	USA
+3	Grandma Kelly's Homestead	Regina Murphy	707 Oxford Rd.	Ann Arbor	48104	USA
+
+
+The following SQL statement copies "Suppliers" into "Customers" (the columns that are not filled with data, will contain NULL):
+
+
+INSERT INTO Customers (CustomerName, City, Country)
+SELECT SupplierName, City, Country FROM Suppliers;
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+The SQL CREATE TABLE Statement
+The CREATE TABLE statement is used to create a new table in a database.
+
+Syntax
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+   ....
+);
+-----------------------------------------------------------------------------------------------------------------
+
+SQL ALTER TABLE Statement
+The ALTER TABLE statement is used to add, delete, or modify columns in an existing table.
+
+The ALTER TABLE statement is also used to add and drop various constraints on an existing table.
+
+ALTER TABLE - ADD Column
+To add a column in a table, use the following syntax:
+
+ALTER TABLE table_name
+ADD column_name datatype;
+The following SQL adds an "Email" column to the "Customers" table:
+
+Example
+ALTER TABLE Customers
+ADD Email varchar(255);
+
+
+select * from persons;
+
+ALTER TABLE PERSONS
+ADD EMAILID varchar(255);
+
+------------------------------------------------
+
+SQL Constraints
+SQL constraints are used to specify rules for the data in a table.
+
+Constraints are used to limit the type of data that can go into a table. This ensures the accuracy and reliability of the data in the table. If there is any violation between the constraint and the data action, the action is aborted.
+
+Constraints can be column level or table level. Column level constraints apply to a column, and table level constraints apply to the whole table.
+
+The following constraints are commonly used in SQL:
+
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Uniquely identifies a row/record in another table
+CHECK - Ensures that all values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column when no value is specified
+INDEX - Used to create and retrieve data from the database very quickly
+
+------------------------------------------------
+
+SQL NOT NULL Constraint
+By default, a column can hold NULL values.
+
+The NOT NULL constraint enforces a column to NOT accept NULL values.
+
+This enforces a field to always contain a value,
+which means that you cannot insert a new record, or update a record without adding a value to this field.
+
+-----------------------------------------------------
+SQL NOT NULL Constraint
+By default, a column can hold NULL values.
+
+The NOT NULL constraint enforces a column to NOT accept NULL values.
+
+This enforces a field to always contain a value, which means that you cannot insert a new record, or update a record without adding a value to this field.
+
+SQL NOT NULL on CREATE TABLE
+The following SQL ensures that the "ID", "LastName", and "FirstName" columns will NOT accept NULL values when the "Persons" table is created:
+
+Example
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+
+SQL NOT NULL on ALTER TABLE
+To create a NOT NULL constraint on the "Age" column when the "Persons" table is already created, use the following SQL:
+
+ALTER TABLE Persons
+MODIFY Age int NOT NULL;
+
+---------------------------------------------------------
+SQL UNIQUE Constraint
+The UNIQUE constraint ensures that all values in a column are different.
+
+Both the UNIQUE and PRIMARY KEY constraints provide a guarantee for uniqueness for a column or set of columns.
+
+A PRIMARY KEY constraint automatically has a UNIQUE constraint.
+
+However, you can have many UNIQUE constraints per table, but only one PRIMARY KEY constraint per table.
+
+SQL UNIQUE Constraint on CREATE TABLE
+The following SQL creates a UNIQUE constraint on the "ID" column when the "Persons" table is created:
+
+SQL Server / Oracle / MS Access:
+
+CREATE TABLE Persons (
+    ID int NOT NULL UNIQUE,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+-----------------------------------------------------------------
+SQL PRIMARY KEY Constraint
+The PRIMARY KEY constraint uniquely identifies each record in a table.
+
+Primary keys must contain UNIQUE values, and cannot contain NULL values.
+
+A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+
+SQL PRIMARY KEY on CREATE TABLE
+The following SQL creates a PRIMARY KEY on the "ID" column when the "Persons" table is created:
+
+MySQL:
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+);
+select * from persons;
+
+ALTER TABLE PERSONS
+ADD EMAILID varchar(255);
+
+ALTER TABLE Persons
+ADD PRIMARY KEY (PersonID);
+--------------------------------------------------------------------
+SQL FOREIGN KEY Constraint
+A FOREIGN KEY is a key used to link two tables together.
+
+A FOREIGN KEY is a field (or collection of fields) in one table that refers to the PRIMARY KEY in another table.
+
+The table containing the foreign key is called the child table, and the table
+containing the candidate key is called the referenced or parent table.
+
+Look at the following two tables:
+
+"Persons" table:
+
+PersonID	LastName	FirstName	Age
+1	Hansen	Ola	30
+2	Svendson	Tove	23
+3	Pettersen	Kari	20
+"Orders" table:
+
+OrderID	OrderNumber	PersonID
+1	77895	3
+2	44678	3
+3	22456	2
+4	24562	1
+Notice that the "PersonID" column in the "Orders" table points to the "PersonID" column in the "Persons" table.
+
+The "PersonID" column in the "Persons" table is the PRIMARY KEY in the "Persons" table.
+
+The "PersonID" column in the "Orders" table is a FOREIGN KEY in the "Orders" table.
+
+The FOREIGN KEY constraint is used to prevent actions that would destroy links between tables.
+
+The FOREIGN KEY constraint also prevents invalid data from being inserted into the foreign key column,
+because it has to be one of the values contained in the table it points to.
+
+MySQL:
+
+The following SQL creates a FOREIGN KEY on the "PersonID" column when the "Orders" table is created:
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+---------------------------------------------
+
+SQL CHECK Constraint
+The CHECK constraint is used to limit the value range that can be placed in a column.
+
+If you define a CHECK constraint on a single column it allows only certain values for this column.
+
+If you define a CHECK constraint on a table it can limit the values in certain columns based on values in other columns in the row.
+
+SQL CHECK on CREATE TABLE
+The following SQL creates a CHECK constraint on the "Age" column when the "Persons" table is created. The CHECK constraint ensures that you can not have any person below 18 years:
+
+MySQL:
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+
+
+--------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
